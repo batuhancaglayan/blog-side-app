@@ -21,7 +21,7 @@ public class TextIdentificationServiceImpl implements TextIdentificationService 
 			TextIdentificationReqeustModel textIdentificationRequestModel) {
 
 		boolean result = this.textIdentificationProcess.startProcess(new TextIdentificationProcessModel(
-				textIdentificationRequestModel.getRequesterMail(), textIdentificationRequestModel.getRequestText()));
+				textIdentificationRequestModel.getEmail(), textIdentificationRequestModel.getComment()));
 		return null;
 	}
 }

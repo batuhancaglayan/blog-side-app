@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TextIdentificationReqeustModel {
 
-	private String requesterMail;
+	private String email;
 
-	private String requestText;
+	private String comment;
 }

@@ -1,15 +1,20 @@
 package com.assignment.text.identifier.model;
 
-import lombok.AllArgsConstructor;
+import java.time.Instant;
+import java.util.UUID;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TextIdentificationProcessModel {
 
-	private String requesterMail;
+	private String id = UUID.randomUUID().toString();
 
-	private String requestText;
+	private Instant createdAt = Instant.now();
+
+	private final String email;
+
+	private final String comment;
 }
