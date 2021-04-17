@@ -8,7 +8,7 @@ const process = async ({ identifyRequest }) => {
 
     const snsSender = snsSenders[identifiedResult];
 
-    await snsSender({ event: identifyRequest });
+    return await snsSender({ event: identifyRequest });
 }
 
 module.exports = {

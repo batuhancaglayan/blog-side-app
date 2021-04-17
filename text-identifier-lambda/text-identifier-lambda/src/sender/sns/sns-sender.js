@@ -7,14 +7,14 @@ const publishSns = async ({
 }) => {
     const snsClient = getSnsClient();
 
-    await snsClient.publish({
+    return (await snsClient.publish({
         Message: JSON.stringify({
             ...event,
             identifiedAt: new Date(),
         }),
         Subject: subject,
         TopicArn: topic,
-    }).promise();
+    }).promise());
 }
 
 module.exports = {
