@@ -1,13 +1,14 @@
 const { getDynamoClient } = require('../modules/dynamo')
 
-class CommentDao {
+const putItem = async ({ item }) => {
+    const dynamoClient = await getDynamoClient();
 
-    async write({ item }) {
-
-        const dynamoClient = await getDynamoClient();
-
-        dynamoClient
-    }
+    return (await dynamoClient.putItem({
+        TableName: 'comment-table',
+        Item: item
+    }).promise());
 }
 
-module.exports = CommentDao;
+module.exports = {
+    putItem
+};

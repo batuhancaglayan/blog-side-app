@@ -1,11 +1,11 @@
-class CommentService {
+const { putItem } = require('../dao/comment-dao');
 
-    constructor({ commentDao }) {
-        this.commentDao = commentDao;
-    }
+const { generateCommentItem } = require('../model/dynamo/comment');
 
-    writeComment({
-        
-    })
-
+const writeComment = async ({ item }) => {
+    return putItem({ item: generateCommentItem(item) });
 }
+
+module.exports = {
+    writeComment
+};
