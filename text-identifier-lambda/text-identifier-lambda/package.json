@@ -9,6 +9,9 @@
   "author": "batuhan",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.886.0"
+    "@middy/core": "^2.0.1",
+    "@middy/sqs-partial-batch-failure": "^2.0.1",
+    "aws-sdk": "^2.886.0",
+    "joi": "^17.4.0"
   }
 }

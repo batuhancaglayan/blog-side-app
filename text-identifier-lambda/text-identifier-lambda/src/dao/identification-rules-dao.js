@@ -1,8 +1,9 @@
-class IdentificationRulesDao {
+const { mockKeywords } = require('../mock');
 
-    async getIdentificationRules() {
-        return {};
-    }
+const getIdentificationRules = async () => {
+    return mockKeywords;
 }
 
-module.exports = IdentificationRulesDao;
+module.exports = {
+    getIdentificationRules,
+}

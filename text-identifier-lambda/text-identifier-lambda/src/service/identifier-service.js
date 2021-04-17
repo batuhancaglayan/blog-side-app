@@ -1,24 +1,16 @@
-const {
-    getSender,
-    sesSnsSenderType,
-} = require('../sender/sns/sns-sender-factory')
+const { identifyText } = require('../identifier');
 
-class IdentifierService {
+const { snsSenders } = require('../sender/sns/sender-factory');
 
-    constructor({ textIdentifier }) {
-        this.textIdentifier = textIdentifier;
-    }
+const process = async ({ identifyRequest }) => {
 
-    async identify({ identifyRequest }) {
-        const { textIdentifier } = this;
+    const identifiedResult = await identifyText({ textContent: identifyRequest.comment });
 
-        const result = await textIdentifier.process({ textContent: identifyRequest.comment });
+    const snsSender = snsSenders[identifiedResult];
 
-        const senderType = result ? sesSnsSenderType.SESSNSSENDER : sesSnsSenderType.DYNAMOSNSSENDER;
-        const snsSender = getSender(senderType);
-
-        await snsSender.send({ event: identifyRequest });
-    }
+    await snsSender({ event: identifyRequest });
 }
 
-module.exports = IdentifierService;
+module.exports = {
+    process,
+}
