@@ -1,6 +1,9 @@
+const { generateUuid } =  require('../../utils/uuid-util')
+
 const generateCommentDoc = (item) => {
     return {
-        id: `${item.id.S}`,
+        id: generateUuid(),
+        dynamoRefId: `${item.id.S}`,
         createdAt: `${item.createdAt.S}`,
         email: `${item.email.S}`,
         comment: `${item.comment.S}`,

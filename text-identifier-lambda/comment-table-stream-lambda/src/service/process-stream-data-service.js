@@ -4,6 +4,8 @@ const { STREAM_EVENT_TYPES } = require('../constant');
 
 const { generateCommentDoc } = require('../model/elasticsearch')
 
+const { md5Hash } = require('../utils/hash-util');
+
 const process = async ({ streamEvent }) => {
 
     const { 
@@ -16,7 +18,9 @@ const process = async ({ streamEvent }) => {
         const commentAcion = commentDaoActions[action];
 
         const doc = generateCommentDoc(record); 
-        return await commentAcion({index: 'comment',  doc });
+        const index = md5Hash(doc.email);
+
+        return await commentAcion({index, doc });
     }
 
     return '';

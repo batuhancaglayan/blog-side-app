@@ -13,7 +13,9 @@
     "@elastic/elasticsearch": "~7.9.0",
     "@middy/core": "^2.0.1",
     "@middy/sqs-partial-batch-failure": "^2.0.1",
-    "joi": "^17.4.0"
+    "joi": "^17.4.0",
+    "md5": "^2.3.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "aws-sdk": "^2.886.0"
