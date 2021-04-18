@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.assignment</groupId>
+    <artifactId>text-identifier-app</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>text-identifier-infra</artifactId>
+  <packaging>pom</packaging>
+  <name>text-identifier-infra</name>
+  <description>text-identifier-infra</description>
+  <modules>
+    <module>text-identifier-infra-exception</module>
+    <module>text-identifier-infra-mapper</module>
+    <module>text-identifier-infra-util</module>
+  </modules>
+</project>
