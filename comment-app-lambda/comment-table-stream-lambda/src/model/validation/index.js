@@ -14,6 +14,9 @@ const dynamoStreamSchema = Joi.object({
         createdAt: Joi.object().keys({
             N: Joi.number().required(),
         }),
+        updatedAt: Joi.object().keys({
+            N: Joi.number().required(),
+        }),
         identifiedAt: Joi.object().keys({
             N: Joi.number().required(),
         }),

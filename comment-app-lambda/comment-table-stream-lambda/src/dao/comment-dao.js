@@ -15,51 +15,31 @@ const updateComment = async ({ index, doc }) => {
 
     const esClient = await getEsClient();
 
-    const docs = await searchByDynamoRefAndEmail({ index, doc });
-
-    if (docs.length != 1){
-        throw Error(`Document not find with dynamoRefId: ${doc.dynamoRefId}`)
-    }
+    await getComment({ index, id: doc.id });
 
     return (await esClient.update({
         index,
-        id: docs[0]._id,
+        id: doc.id,
         body: { 
             doc: {
                 comment: doc.comment,
+                updatedAt: doc.updatedAt,
                 isActive: doc.isActive
             }
         },
     }));
 }
 
-const searchByDynamoRefAndEmail = async ({ index, doc }) => {
+const getComment = async ({ index, id }) => {
 
     const esClient = await getEsClient();
 
-    const { body } = await esClient.search({
+    const { body } = await esClient.get({
         index,
-        body: {
-            query: {
-            bool: {
-                must: [
-                  {
-                    match: {
-                        dynamoRefId: doc.dynamoRefId,
-                    }
-                  },
-                  {
-                    match: {
-                        email: doc.email,
-                    }
-                  }
-                ]
-            }
-        }
-    }
+        id,
     });
-    
-    return body.hits.hits;
+        
+    return body._source;
 }
 
 module.exports = {
