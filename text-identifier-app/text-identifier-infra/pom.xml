@@ -14,5 +14,7 @@
     <module>text-identifier-infra-exception</module>
     <module>text-identifier-infra-mapper</module>
     <module>text-identifier-infra-util</module>
+    <module>text-identifier-infra-aws</module>
+    <module>text-identifier-infra-web</module>
   </modules>
 </project>

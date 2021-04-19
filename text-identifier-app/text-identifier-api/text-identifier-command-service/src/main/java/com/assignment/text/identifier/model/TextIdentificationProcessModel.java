@@ -14,7 +14,7 @@ public class TextIdentificationProcessModel {
 
 	private String id = UUID.randomUUID().toString();
 
-	private Instant createdAt = Instant.now();
+	private Long createdAt = Instant.now().getEpochSecond();
 
 	private String email;
 

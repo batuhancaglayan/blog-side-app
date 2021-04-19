@@ -1,5 +1,8 @@
 package com.assignment.text.identifier.controller;
 
+import javax.validation.Valid;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +23,9 @@ public class TextIdentificationController {
 	}
 
 	@PostMapping("/create")
-	public TextIdentificationResponseModel createTextIdentification(
-			@RequestBody TextIdentificationReqeustModel textIdentificationRequestModel) {
-		return textIdentificationService.createTextIdentification(textIdentificationRequestModel);
+	public ResponseEntity<TextIdentificationResponseModel> createTextIdentification(
+			@Valid @RequestBody TextIdentificationReqeustModel textIdentificationRequestModel) {
+		return ResponseEntity.ok()
+				.body(textIdentificationService.createTextIdentification(textIdentificationRequestModel));
 	}
 }

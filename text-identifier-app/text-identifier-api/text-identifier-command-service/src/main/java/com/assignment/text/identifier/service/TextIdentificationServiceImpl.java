@@ -26,10 +26,11 @@ public class TextIdentificationServiceImpl implements TextIdentificationService 
 	public TextIdentificationResponseModel createTextIdentification(
 			TextIdentificationReqeustModel textIdentificationRequestModel) {
 
-		TextIdentificationProcessModel processModel = textIdentificationMapper
+		TextIdentificationProcessModel processModel = this.textIdentificationMapper
 				.reqeustModelToProcessModel(textIdentificationRequestModel, new CyclePreventiveContext());
 		
 		boolean result = this.textIdentificationProcess.startProcess(processModel);
-		return null;
+		
+		return this.textIdentificationMapper.processModelToResponseModel(processModel, result,  new CyclePreventiveContext());
 	}
 }

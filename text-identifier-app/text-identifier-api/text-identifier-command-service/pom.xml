@@ -17,13 +17,13 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>com.assignment</groupId>
+			<artifactId>text-identifier-infra-web</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
+			<groupId>com.assignment</groupId>
+			<artifactId>text-identifier-api-common</artifactId>
 		</dependency>
 
 		<dependency>
@@ -48,9 +48,12 @@
 			<artifactId>aws-java-sdk-dynamodb</artifactId>
 		</dependency>
 
+		<!-- <dependency> <groupId>com.amazonaws</groupId> <artifactId>aws-java-sdk-sqs</artifactId> 
+			</dependency> -->
+
 		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-sqs</artifactId>
+			<groupId>com.assignment</groupId>
+			<artifactId>text-identifier-infra-aws</artifactId>
 		</dependency>
 
 		<dependency>

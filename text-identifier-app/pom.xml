@@ -52,6 +52,18 @@
 
 			<dependency>
 				<groupId>com.assignment</groupId>
+				<artifactId>text-identifier-infra-web</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.assignment</groupId>
+				<artifactId>text-identifier-api-common</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.assignment</groupId>
 				<artifactId>text-identifier-infra-exception</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
@@ -65,6 +77,12 @@
 			<dependency>
 				<groupId>com.assignment</groupId>
 				<artifactId>text-identifier-infra-util</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.assignment</groupId>
+				<artifactId>text-identifier-infra-aws</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
