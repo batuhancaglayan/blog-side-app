@@ -2,7 +2,7 @@ package com.assignment.comment.app.service;
 
 import org.springframework.stereotype.Component;
 
-import com.assignment.comment.app.dao.CommentDoa;
+import com.assignment.comment.app.dao.CommentDao;
 import com.assignment.comment.app.infra.mapper.CyclePreventiveContext;
 import com.assignment.comment.app.mapper.CommentRequestResponseMapper;
 import com.assignment.comment.app.model.CommentCreateRequestModel;
@@ -12,12 +12,12 @@ import com.assignment.comment.app.model.CommentModel;
 @Component
 public class CommentServiceImpl implements CommentService {
 
-	private CommentDoa commentDoa;
+	private CommentDao commentDao;
 
 	private CommentRequestResponseMapper commentRequestResponseMapper;
 
-	public CommentServiceImpl(CommentDoa commentDoa, CommentRequestResponseMapper commentRequestResponseMapper) {
-		this.commentDoa = commentDoa;
+	public CommentServiceImpl(CommentDao commentDao, CommentRequestResponseMapper commentRequestResponseMapper) {
+		this.commentDao = commentDao;
 		this.commentRequestResponseMapper = commentRequestResponseMapper;
 	}
 
@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
 		CommentModel processModel = this.commentRequestResponseMapper
 				.reqeustModelToProcessModel(commentCreateRequestModel, new CyclePreventiveContext());
 
-		boolean result = this.commentDoa.createComment(processModel);
+		boolean result = this.commentDao.createComment(processModel);
 
 		return this.commentRequestResponseMapper.processModelToResponseModel(processModel, result,
 				new CyclePreventiveContext());
@@ -35,6 +35,6 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void removeComment(String commentId) {
-		this.commentDoa.softDeleteItem(commentId);
+		this.commentDao.softDeleteItem(commentId);
 	}
 }

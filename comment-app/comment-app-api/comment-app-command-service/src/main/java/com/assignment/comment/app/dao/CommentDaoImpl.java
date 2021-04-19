@@ -11,13 +11,13 @@ import com.assignment.comment.app.model.CommentModel;
 import com.assignment.comment.app.process.TextIdentificationProcess;
 
 @Component
-public class CommentDoaImpl implements CommentDoa {
+public class CommentDaoImpl implements CommentDao {
 
 	private DynamoClient dynamoClient;
 
 	private TextIdentificationProcess textIdentificationProcess;
 
-	public CommentDoaImpl(DynamoClient dynamoClient, TextIdentificationProcess textIdentificationProcess) {
+	public CommentDaoImpl(DynamoClient dynamoClient, TextIdentificationProcess textIdentificationProcess) {
 		this.dynamoClient = dynamoClient;
 		this.textIdentificationProcess = textIdentificationProcess;
 	}
