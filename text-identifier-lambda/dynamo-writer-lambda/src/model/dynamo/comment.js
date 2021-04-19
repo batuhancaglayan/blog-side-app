@@ -1,10 +1,10 @@
 const generateCommentItem = (item) => {
     return {
         id: { S: `${item.id}` },
-        createdAt: { S: `${item.createdAt}` },
+        createdAt: { N: `${item.createdAt}` },
         email: { S: `${item.email}` },
         comment: { S: `${item.comment}` },
-        identifiedAt: { S: `${item.identifiedAt}` },
+        identifiedAt: { N: `${item.identifiedAt}` },
         isActive: { N: '1' },
     }
 }

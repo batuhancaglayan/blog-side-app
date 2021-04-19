@@ -12,10 +12,10 @@ const dynamoStreamSchema = Joi.object({
             S: Joi.string().required(),
         }),
         createdAt: Joi.object().keys({
-            S: Joi.date().iso().required(),
+            N: Joi.number().required(),
         }),
         identifiedAt: Joi.object().keys({
-            S: Joi.date().iso().required(),
+            N: Joi.number().required(),
         }),
         isActive: Joi.object().keys({
             N: Joi.number().required(),

@@ -4,10 +4,10 @@ const generateCommentDoc = (item) => {
     return {
         id: generateUuid(),
         dynamoRefId: `${item.id.S}`,
-        createdAt: `${item.createdAt.S}`,
+        createdAt: `${item.createdAt.N}`,
         email: `${item.email.S}`,
         comment: `${item.comment.S}`,
-        identifiedAt: `${item.identifiedAt.S}`,
+        identifiedAt: `${item.identifiedAt.N}`,
         isActive: item.isActive.N
     }
 }

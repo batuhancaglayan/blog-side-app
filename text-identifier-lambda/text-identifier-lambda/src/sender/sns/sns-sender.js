@@ -10,7 +10,7 @@ const publishSns = async ({
     return (await snsClient.publish({
         Message: JSON.stringify({
             ...event,
-            identifiedAt: new Date(),
+            identifiedAt: new Date().getTime(),
         }),
         Subject: subject,
         TopicArn: topic,
