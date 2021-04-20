@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TextIdentifierQueryService {
+public class CommentAppQueryService {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(TextIdentifierQueryService.class, args);
+		SpringApplication.run(CommentAppQueryService.class, args);
 	}
 }

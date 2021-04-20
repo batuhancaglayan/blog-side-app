@@ -17,10 +17,10 @@ import lombok.Builder;
 public class DefaultDynamoClient implements DynamoClient {
 
 	@Builder.Default
-	private DynamoDB dynamoDB = new DynamoDB(AmazonDynamoDBClientBuilder.standard().build());
+	protected DynamoDB dynamoDB = new DynamoDB(AmazonDynamoDBClientBuilder.standard().build());
 
 	@Builder.Default
-	private ObjectMapper objectMapper = new ObjectMapper();
+	protected ObjectMapper objectMapper = new ObjectMapper();
 
 	@Override
 	public UpdateItemOutcome updateItem(String tableName, String updateExpression, Map<String, Object> valueMap,

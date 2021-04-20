@@ -1,4 +1,4 @@
-package com.assignment.comment.app.model;
+package com.assignment.comment.app.model.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

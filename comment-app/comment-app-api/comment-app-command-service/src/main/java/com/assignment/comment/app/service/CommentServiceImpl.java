@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 import com.assignment.comment.app.dao.CommentDao;
 import com.assignment.comment.app.infra.mapper.CyclePreventiveContext;
 import com.assignment.comment.app.mapper.CommentRequestResponseMapper;
-import com.assignment.comment.app.model.CommentCreateRequestModel;
-import com.assignment.comment.app.model.CommentCreateResponseModel;
-import com.assignment.comment.app.model.CommentModel;
+import com.assignment.comment.app.model.data.CommentModel;
+import com.assignment.comment.app.model.dto.CommentCreateRequestModel;
+import com.assignment.comment.app.model.dto.CommentCreateResponseModel;
 
 @Component
 public class CommentServiceImpl implements CommentService {

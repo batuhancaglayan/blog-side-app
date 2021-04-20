@@ -12,10 +12,10 @@ import lombok.Builder;
 public class DefaultSqsClient implements SqsClient {
 
 	@Builder.Default
-	private AmazonSQS amazonSQS = AmazonSQSClientBuilder.standard().build();
+	protected AmazonSQS amazonSQS = AmazonSQSClientBuilder.standard().build();
 
 	@Builder.Default
-	private ObjectMapper objectMapper = new ObjectMapper();
+	protected ObjectMapper objectMapper = new ObjectMapper();
 
 	public <T> void send(String queueUrl, T content) throws JsonProcessingException {
 		send(queueUrl, content, null);

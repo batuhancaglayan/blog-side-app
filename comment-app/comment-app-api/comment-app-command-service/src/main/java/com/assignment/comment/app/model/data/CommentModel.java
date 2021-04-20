@@ -1,4 +1,4 @@
-package com.assignment.comment.app.model;
+package com.assignment.comment.app.model.data;
 
 import java.time.Instant;
 import java.util.UUID;

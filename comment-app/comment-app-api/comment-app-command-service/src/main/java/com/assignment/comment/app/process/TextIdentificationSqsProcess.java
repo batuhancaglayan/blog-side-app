@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.assignment.comment.app.infra.aws.sqs.SqsClient;
 import com.assignment.comment.app.infra.exception.AssignmentRuntimeException;
-import com.assignment.comment.app.model.CommentModel;
+import com.assignment.comment.app.model.data.CommentModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Component
