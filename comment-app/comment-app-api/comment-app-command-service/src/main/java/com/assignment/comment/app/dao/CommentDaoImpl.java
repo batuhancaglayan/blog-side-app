@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.dynamodbv2.document.KeyAttribute;
 import com.assignment.comment.app.infra.aws.dynamo.DynamoClient;
-import com.assignment.comment.app.model.CommentModel;
+import com.assignment.comment.app.model.data.CommentModel;
 import com.assignment.comment.app.process.TextIdentificationProcess;
 
 @Component

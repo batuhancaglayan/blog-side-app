@@ -1,6 +1,6 @@
 package com.assignment.comment.app.process;
 
-import com.assignment.comment.app.model.CommentModel;
+import com.assignment.comment.app.model.data.CommentModel;
 
 public interface TextIdentificationProcess {
 

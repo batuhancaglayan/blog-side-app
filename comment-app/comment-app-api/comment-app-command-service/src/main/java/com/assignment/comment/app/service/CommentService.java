@@ -1,7 +1,7 @@
 package com.assignment.comment.app.service;
 
-import com.assignment.comment.app.model.CommentCreateRequestModel;
-import com.assignment.comment.app.model.CommentCreateResponseModel;
+import com.assignment.comment.app.model.dto.CommentCreateRequestModel;
+import com.assignment.comment.app.model.dto.CommentCreateResponseModel;
 
 public interface CommentService {
 

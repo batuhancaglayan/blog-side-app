@@ -8,12 +8,12 @@ import org.mapstruct.MappingTarget;
 
 import com.assignment.comment.app.api.common.enumeration.ProcessType;
 import com.assignment.comment.app.infra.mapper.CyclePreventiveContext;
-import com.assignment.comment.app.infra.mapper.TextIdentifierMapperConfig;
-import com.assignment.comment.app.model.CommentCreateRequestModel;
-import com.assignment.comment.app.model.CommentCreateResponseModel;
-import com.assignment.comment.app.model.CommentModel;
+import com.assignment.comment.app.infra.mapper.CommentAppMapperConfig;
+import com.assignment.comment.app.model.data.CommentModel;
+import com.assignment.comment.app.model.dto.CommentCreateRequestModel;
+import com.assignment.comment.app.model.dto.CommentCreateResponseModel;
 
-@Mapper(config = TextIdentifierMapperConfig.class)
+@Mapper(config = CommentAppMapperConfig.class)
 public interface CommentRequestResponseMapper {
 
 	public CommentModel reqeustModelToProcessModel(CommentCreateRequestModel requestModel,

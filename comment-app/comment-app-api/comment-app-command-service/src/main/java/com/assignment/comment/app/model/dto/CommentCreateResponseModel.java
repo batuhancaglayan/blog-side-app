@@ -1,4 +1,4 @@
-package com.assignment.comment.app.model;
+package com.assignment.comment.app.model.dto;
 
 import com.assignment.comment.app.api.common.enumeration.ProcessType;
 

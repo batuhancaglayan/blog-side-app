@@ -16,5 +16,6 @@
     <module>comment-app-infra-util</module>
     <module>comment-app-infra-aws</module>
     <module>comment-app-infra-web</module>
+    <module>comment-app-infra-es</module>
   </modules>
 </project>
