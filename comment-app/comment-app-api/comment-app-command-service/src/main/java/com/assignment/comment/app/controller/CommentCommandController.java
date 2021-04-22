@@ -16,7 +16,7 @@ import com.assignment.comment.app.model.dto.CommentCreateResponseModel;
 import com.assignment.comment.app.service.CommentService;
 
 @RestController
-@RequestMapping("comment")
+@RequestMapping("/comment")
 public class CommentCommandController {
 
 	private CommentService commentService;
@@ -32,7 +32,7 @@ public class CommentCommandController {
 				.body(this.commentService.createComment(commentCreateRequestModel));
 	}
 
-	@DeleteMapping("delete/{commentId}")
+	@DeleteMapping("/delete/{commentId}")
 	public ResponseEntity<Void> deleteComment(@NotNull @PathVariable String commentId) {
 		this.commentService.removeComment(commentId);
 		return ResponseEntity.ok().build();
