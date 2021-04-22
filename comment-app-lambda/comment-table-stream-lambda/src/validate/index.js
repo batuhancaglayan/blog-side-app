@@ -4,8 +4,6 @@ const validate = (fn) => {
     return async function (){
     
       const { dynamodb, eventName } = arguments[0];
-      // const snsBody = JSON.parse(record.body);
-      // const message = JSON.parse(snsBody.Message);
 
       await dynamoStreamSchema.validateAsync(dynamodb);
 

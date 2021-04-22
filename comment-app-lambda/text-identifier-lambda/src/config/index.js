@@ -1,24 +1,9 @@
-/*
-const middy = require('@middy/core');
-const ssm = require('@middy/ssm');
-const pkg = require('../../package');
+const config = {
+  region: process.env.REGION || '',
+  verifiedCommentSnsTopic = process.env.VERIFIED_COMMENT_SNS_TOPIC || '',
+  bannedCommentSnsTopic = process.env.BANNED_COMMENT_SNS_TOPIC || '',
+}
 
-const { MICROSERVICE } = require('../constants');
-*/
-
-const config = async () => ({
-  deneme: 'deneme', 
-});
-
-/*
-const middyConfig = middy(config);
-
-middyConfig.use(ssm({
-  cache: true,
-  paths: {
-    SSM: process.env.SSM_PREFIX,
-  },
-}));
-*/
-
-module.exports.configInit = config;
+module.exports = {
+  config
+};

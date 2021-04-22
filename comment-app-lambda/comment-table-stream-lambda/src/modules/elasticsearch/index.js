@@ -1,5 +1,7 @@
 const { Client } = require('@elastic/elasticsearch');
-const { createAWSConnection, awsGetCredentials } = require('@acuris/aws-es-connection')
+const { createAWSConnection, awsGetCredentials } = require('@acuris/aws-es-connection');
+
+const { config } = require('../../config')
 
 let esClient;
 
@@ -11,7 +13,7 @@ const getEsClient = async () => {
         
         esClient= new Client({
           ...AWSConnection,
-          node: 'https://search-comment-search-wv7tt6zswrmjwxqvfkk7xiqefm.eu-central-1.es.amazonaws.com',
+          node: config.elasticSearchNode,
         });       
     }
 
