@@ -31,7 +31,7 @@ public class RestControllerAdvice {
 		});
 		return errors;
 	}
-
+	//ElasticsearchStatusException
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
 		

@@ -1,0 +1,18 @@
+        // const policyExecution = new iam.PolicyStatement({
+        //     effect: iam.Effect.ALLOW,
+        //     resources:[
+        //         asset.repository.repositoryArn // from step 2
+        //     ],
+        //     actions: [
+        //         "ecr:BatchCheckLayerAvailability",
+        //         "ecr:GetDownloadUrlForLayer",
+        //         "ecr:BatchGetImage"
+        //     ]
+        // });
+        
+        // // execution role
+        // const erole = new iam.Role(this, "roleEcsExecution", {
+        //     assumedBy: new iam.ServicePrincipal("ecs-tasks.amazonaws.com")
+        // });
+
+        // erole.addToPolicy(policyExecution);

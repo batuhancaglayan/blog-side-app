@@ -2,6 +2,8 @@ package com.assignment.comment.app.process;
 
 import org.springframework.stereotype.Component;
 
+import com.assignment.comment.app.config.AwsConfig;
+import com.assignment.comment.app.config.SqsProperties;
 import com.assignment.comment.app.infra.aws.sqs.SqsClient;
 import com.assignment.comment.app.infra.exception.AssignmentRuntimeException;
 import com.assignment.comment.app.model.data.CommentModel;
@@ -11,9 +13,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class TextIdentificationSqsProcess implements TextIdentificationProcess {
 
 	private SqsClient sqsClient;
+	
+	private SqsProperties sqsProperties;
 
-	public TextIdentificationSqsProcess(SqsClient sqsClient) {
+	public TextIdentificationSqsProcess(SqsClient sqsClient, SqsProperties sqsProperties) {
 		this.sqsClient = sqsClient;
+		this.sqsProperties = sqsProperties;
 	}
 
 	@Override
@@ -21,7 +26,8 @@ public class TextIdentificationSqsProcess implements TextIdentificationProcess {
 
 		try {
 			this.sqsClient.send(
-					"https://sqs.eu-central-1.amazonaws.com/270045217160/text-identification-request-queue",
+					this.sqsProperties.getCommentProcessSqs(),
+					//"https://sqs.eu-central-1.amazonaws.com/270045217160/text-identification-request-queue",
 					textIdentificationProcessModel);
 			
 			return true;
