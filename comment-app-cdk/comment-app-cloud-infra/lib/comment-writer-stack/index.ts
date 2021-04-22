@@ -38,7 +38,7 @@ export class CommentWriterStack extends cdk.Stack {
                 name: 'id', type: dynamodb.AttributeType.STRING
             },
             sortKey: {
-                name: 'createdAt', type: dynamodb.AttributeType.STRING
+                name: 'createdAt', type: dynamodb.AttributeType.NUMBER
             },
             stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,     
         });
