@@ -2,15 +2,15 @@ import * as cdk from '@aws-cdk/core';
 
 import { NetworkStack } from './network-stack'
 
-// import { EcsStack } from './ecs'
+import { CommentWriterStack } from './comment-writer-stack';
 
 import { SesSenderStack } from './ses-sender-stack';
-
-import { CommentWriterStack } from './comment-writer-stack';
 
 import { CommentTextIdentifierStack } from './comment-text-identifier-stack'
 
 import { DynamoStreamStack } from './dynamo-stream-stack';
+
+import { MainAppStack } from './main-app-stack'
 
 export class CommentAppCloudInfraStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -48,9 +48,12 @@ export class CommentAppCloudInfraStack extends cdk.Stack {
       bannedCommentSNS: sesSenderStack.bannedCommentSNS,
     });
     
-    // const ecsStack = new EcsStack(this, 'AssigmentEcs', { 
-    //   vpc: networkStack.vpc,
-    //   env: props?.env
-    // });
+    const mainAppStack = new MainAppStack(this, 'AssigmentMainAppStack', { 
+      stackName: 'AssigmentMainAppStack',
+      vpc: networkStack.vpc,
+      env: props?.env,
+      commentProcessSqs: commentTextIdentifierStack.commentProcessSqs,
+      commentAppElasticSearch: dynamoStreamStack.commentAppElasticSearch
+    });
   }
 }

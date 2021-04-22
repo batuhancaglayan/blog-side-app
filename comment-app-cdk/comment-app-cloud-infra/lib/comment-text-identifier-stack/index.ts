@@ -6,8 +6,6 @@ import { SqsEventSource } from '@aws-cdk/aws-lambda-event-sources';
 import * as sns from '@aws-cdk/aws-sns';
 import * as sqs from '@aws-cdk/aws-sqs';
 
-import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
-
 import { Duration } from '@aws-cdk/core';
 
 import * as ec2 from '@aws-cdk/aws-ec2';

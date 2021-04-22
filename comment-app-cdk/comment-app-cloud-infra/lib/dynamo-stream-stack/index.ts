@@ -3,10 +3,7 @@ import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { DynamoEventSource, SqsDlq } from '@aws-cdk/aws-lambda-event-sources';
 
-import * as sns from '@aws-cdk/aws-sns';
 import * as sqs from '@aws-cdk/aws-sqs';
-
-import * as subscriptions from '@aws-cdk/aws-sns-subscriptions';
 
 import { Duration } from '@aws-cdk/core';
 
@@ -36,7 +33,7 @@ export class DynamoStreamStack extends cdk.Stack {
     const commentTable: dynamodb.Table = props.commentTable;
     
     const commentAppElasticSearch = new es.Domain(this, 'CommentAppElasticSearch', {
-      domainName: 'comment-app-search-a',
+      domainName: 'comment-app-search',
       version: es.ElasticsearchVersion.V7_7,
       // vpc,
       // zoneAwareness: {

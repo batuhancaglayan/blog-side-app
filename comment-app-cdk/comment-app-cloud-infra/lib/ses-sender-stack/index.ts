@@ -12,6 +12,8 @@ import { Duration } from '@aws-cdk/core';
 
 import * as ec2 from '@aws-cdk/aws-ec2';
 
+import * as iam from '@aws-cdk/aws-iam';
+
 import * as path from 'path';
 
 export interface SesSenderStackProps extends cdk.StackProps {
@@ -66,6 +68,12 @@ export class SesSenderStack extends cdk.Stack {
                 'REGION': region,
             }
         });
+
+        bannedCommentSesSenderLambda.addToRolePolicy(new iam.PolicyStatement({
+            actions: ['ses:SendEmail', 'SES:SendRawEmail'],
+            resources: ['*'],
+            effect: iam.Effect.ALLOW,
+        }));
         
         bannedCommentSesSenderLambda.addEventSource(new SqsEventSource(bannedCommentSqs, {
             batchSize: 5,
