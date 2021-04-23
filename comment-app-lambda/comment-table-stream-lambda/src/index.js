@@ -12,8 +12,7 @@ const handler = async (event) => {
 }
 
 const processMessage = validate(async (streamEvent) => {
-    const aq = await process({ streamEvent });
-    return aq;
+    return await process({ streamEvent });
 });
 
 const middyHandler = middy(handler)

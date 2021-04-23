@@ -15,8 +15,6 @@ const process = async ({ streamEvent }) => {
         eventName,
     } = streamEvent;
 
-    try {
-
     const action = STREAM_EVENT_TYPES[eventName];
     if (action){
         const commentAcion = commentDaoActions[action];
@@ -30,11 +28,6 @@ const process = async ({ streamEvent }) => {
     }
 
     return '';
-            
-} catch (error) {
-     console.log(error)   
-}
-
 }
 
 module.exports = {
