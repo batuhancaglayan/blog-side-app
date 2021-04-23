@@ -15,7 +15,8 @@
     "@middy/sqs-partial-batch-failure": "^2.0.1",
     "joi": "^17.4.0",
     "md5": "^2.3.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "aws-sdk": "^2.886.0"

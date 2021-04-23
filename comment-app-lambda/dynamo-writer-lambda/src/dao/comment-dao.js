@@ -4,7 +4,7 @@ const { config } = require('../config');
 
 const putItem = async ({ item }) => {
     const dynamoClient = await getDynamoClient();
-
+    
     return (await dynamoClient.putItem({
         TableName: config.commentTableName,
         Item: item

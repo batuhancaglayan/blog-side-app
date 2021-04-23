@@ -3,6 +3,8 @@ const { createAWSConnection, awsGetCredentials } = require('@acuris/aws-es-conne
 
 const { config } = require('../../config')
 
+const { logger } = require('../../helper/logger');
+
 let esClient;
 
 const getEsClient = async () => {
@@ -15,6 +17,8 @@ const getEsClient = async () => {
           ...AWSConnection,
           node: config.elasticSearchNode,
         });       
+
+        logger.log({level: 'debug', message: 'EsClient Initialized'});
     }
 
     return esClient;

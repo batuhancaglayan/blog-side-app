@@ -1,5 +1,3 @@
-console.log('Loading function');
-
 const { process } = require('./service/identifier-service');
 
 const { validate } = require('./validate')

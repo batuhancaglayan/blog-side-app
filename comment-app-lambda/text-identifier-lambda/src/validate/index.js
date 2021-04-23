@@ -1,5 +1,7 @@
 const { sqsRecordSchema } = require('../model/validation')
 
+const { logger } = require('../helper/logger');
+
 const validate = (fn) => {
     return async function (){
 
@@ -7,11 +9,12 @@ const validate = (fn) => {
         const recordBody = JSON.parse(record.body);
         await sqsRecordSchema.validateAsync(recordBody);
         arguments[0] = recordBody;
-        //console.log(value)
+
       try{
         return await fn.apply(this, arguments);
-      }catch(ex){
-        console.log(ex)
+      }catch(err){
+        logger.log({level: 'error', message: err});
+        throw err; // re-throw for middy
       }
     };
 };

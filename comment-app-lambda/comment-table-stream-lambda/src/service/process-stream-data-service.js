@@ -6,6 +6,8 @@ const { generateCommentDoc } = require('../model/elasticsearch')
 
 const { md5Hash } = require('../utils/hash-util');
 
+const { logger } = require('../helper/logger');
+
 const process = async ({ streamEvent }) => {
 
     const { 
@@ -21,6 +23,8 @@ const process = async ({ streamEvent }) => {
 
         const doc = generateCommentDoc(record); 
         const index = md5Hash(doc.email);
+
+        logger.log({level: 'debug', message: `Document: ${doc.id} will be ${action} to ES.`});
 
         return await commentAcion({index, doc });
     }
