@@ -18,14 +18,11 @@ import com.assignment.comment.app.infra.es.ESClient;
 @Configuration
 public class AwsConfig {
 
-	@Value("${aws.es.endpoint}")
-	private String endpoint;
-
-	@Value("${aws.es.region}")
-	private String region;
-
-	@Value("${aws.es.serviceName}")
-	private String serviceName;
+	private ElasticsearchProperties elasticsearchProperties;
+	
+	public AwsConfig(ElasticsearchProperties elasticsearchProperties) {
+		this.elasticsearchProperties = elasticsearchProperties;
+	}
 
 	@Bean
 	public AWSCredentialsProvider credentialsProvider() {
@@ -35,11 +32,14 @@ public class AwsConfig {
 	@Bean
 	public RestHighLevelClient restHighLevelClient(AWSCredentialsProvider credentialsProvider) {
 		AWS4Signer signer = new AWS4Signer();
-		signer.setServiceName(serviceName);
-		signer.setRegionName(region);
-		HttpRequestInterceptor interceptor = new AWSRequestSigningApacheInterceptor(serviceName, signer,
+		signer.setServiceName(this.elasticsearchProperties.getServiceName());
+		signer.setRegionName(this.elasticsearchProperties.getRegion());
+		HttpRequestInterceptor interceptor = new AWSRequestSigningApacheInterceptor(
+				this.elasticsearchProperties.getServiceName(), 
+				signer,
 				credentialsProvider);
-		return new RestHighLevelClient(RestClient.builder(HttpHost.create(endpoint))
+		return new RestHighLevelClient(
+				RestClient.builder(HttpHost.create(this.elasticsearchProperties.getEndpoint()))
 				.setHttpClientConfigCallback(hacb -> hacb.addInterceptorLast(interceptor)));
 	}
 

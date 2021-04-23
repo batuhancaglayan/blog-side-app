@@ -25,14 +25,14 @@ public class CommentQueryController {
 		this.commentService = commentService;
 	}
 
-	@PostMapping("query/email")
+	@PostMapping("/email")
 	public ResponseEntity<List<CommentSearchResponseModel>> searchByEmail(
 			@Valid @RequestBody CommentSearchRequestModel requestModel) {
 
 		return ResponseEntity.ok().body(this.commentService.findByEmail(requestModel));
 	}
 
-	@PostMapping("query/email-keyword")
+	@PostMapping("/email-keyword")
 	public ResponseEntity<List<CommentSearchResponseModel>> searchByEmailAndKeyword(
 			@Valid @RequestBody CommentSearchKeywordRequestModel requestModel) {
 

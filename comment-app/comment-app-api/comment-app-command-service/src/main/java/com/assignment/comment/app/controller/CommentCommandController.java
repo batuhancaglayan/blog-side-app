@@ -25,14 +25,14 @@ public class CommentCommandController {
 		this.commentService = commentService;
 	}
 	
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<CommentCreateResponseModel> createComment(
 			@Valid @RequestBody CommentCreateRequestModel commentCreateRequestModel) {
 		return ResponseEntity.ok()
 				.body(this.commentService.createComment(commentCreateRequestModel));
 	}
 
-	@DeleteMapping("/delete/{commentId}")
+	@DeleteMapping("/{commentId}")
 	public ResponseEntity<Void> deleteComment(@NotNull @PathVariable String commentId) {
 		this.commentService.removeComment(commentId);
 		return ResponseEntity.ok().build();
