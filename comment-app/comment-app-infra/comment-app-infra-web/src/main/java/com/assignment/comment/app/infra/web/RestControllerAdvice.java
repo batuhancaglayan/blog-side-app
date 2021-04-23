@@ -16,26 +16,27 @@ public class RestControllerAdvice {
 
 	@ExceptionHandler(AssignmentRuntimeException.class)
 	protected ResponseEntity<Object> handleConflict(AssignmentRuntimeException ex, WebRequest request) {
-
-		// todo: handle and create error response
-		return null;
+		System.err.println(ex.getStackTrace());
+		return  ResponseEntity.status(500).body(ex.getMessage());
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Map<String, String> errors = new HashMap<>();
+		
 		ex.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
 			String errorMessage = error.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
 		});
+		
 		return errors;
 	}
 	//ElasticsearchStatusException
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
 		
-		// todo: handle and create error response
-		return null;
+		System.err.println(ex.getStackTrace());
+		return  ResponseEntity.status(500).body(ex.getMessage());
 	}
 }
