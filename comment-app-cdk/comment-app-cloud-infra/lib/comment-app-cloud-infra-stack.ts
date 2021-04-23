@@ -53,7 +53,8 @@ export class CommentAppCloudInfraStack extends cdk.Stack {
       vpc: networkStack.vpc,
       env: props?.env,
       commentProcessSqs: commentTextIdentifierStack.commentProcessSqs,
-      commentAppElasticSearch: dynamoStreamStack.commentAppElasticSearch
+      commentAppElasticSearch: dynamoStreamStack.commentAppElasticSearch,
+      commentTable: commentWriterStack.commentTable
     });
   }
 }

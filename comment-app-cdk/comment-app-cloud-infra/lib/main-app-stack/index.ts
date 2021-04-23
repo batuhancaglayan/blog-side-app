@@ -3,19 +3,17 @@ import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as ecs from '@aws-cdk/aws-ecs';
 
-import { DockerImageAsset } from '@aws-cdk/aws-ecr-assets';
-
-import * as ecr from '@aws-cdk/aws-ecr';
-
 import * as elbv2 from '@aws-cdk/aws-elasticloadbalancingv2';
 
 import * as sqs from '@aws-cdk/aws-sqs';
 
 import * as es from '@aws-cdk/aws-elasticsearch';
 
+import * as dynamodb from '@aws-cdk/aws-dynamodb';
+
 import * as iam from '@aws-cdk/aws-iam';
 
-import * as path from 'path';
+import { Duration } from '@aws-cdk/core';
 
 export interface MainAppStackProps extends cdk.StackProps {
     vpc: ec2.Vpc;
@@ -23,8 +21,10 @@ export interface MainAppStackProps extends cdk.StackProps {
     commentProcessSqs: sqs.Queue;
 
     commentAppElasticSearch: es.Domain;
+
+    commentTable: dynamodb.Table;
 }
-//-Dspring.profiles.active=production
+
 export class MainAppStack extends cdk.Stack {
     
     constructor(scope: cdk.Construct, id: string, props: MainAppStackProps) {
@@ -33,6 +33,7 @@ export class MainAppStack extends cdk.Stack {
         const vpc: ec2.Vpc = props.vpc;
         const commentProcessSqs: sqs.Queue = props.commentProcessSqs;  
         const commentAppElasticSearch: es.Domain = props.commentAppElasticSearch;  
+        const commentTable: dynamodb.Table = props.commentTable;
         
         const cluster = new ecs.Cluster(this, 'CommentAppCluster', { 
             vpc, 
@@ -43,10 +44,6 @@ export class MainAppStack extends cdk.Stack {
         /**************  comment-app-command-service ECS Service & Task & Repo   ********************************/
         /********************************************************************************************************/
 
-        const commentAppCommandServiceAsset = new DockerImageAsset(this, 'CommentAppCommandService', {
-            directory: path.join(__dirname, '../../../../comment-app/comment-app-api/comment-app-command-service')
-        });
-
         const commentAppCommandServiceTaskDefRole = new iam.Role(this, 'CommentAppCommandServiceTaskDefRole', {
             assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
             managedPolicies: [
@@ -56,74 +53,57 @@ export class MainAppStack extends cdk.Stack {
         })
 
         const commentAppCommandServiceTaskDef = new ecs.FargateTaskDefinition(this, 'CommentAppCommandServiceTaskDef', {           
-            memoryLimitMiB: 512,
-            cpu: 256,
+            memoryLimitMiB: 1024,
+            cpu: 512,
             taskRole: commentAppCommandServiceTaskDefRole
         });
 
-        const commentAppCommandServiceRepo = ecr.Repository.fromRepositoryName(
-            this, 
-            commentAppCommandServiceAsset.repository.repositoryName, 
-            commentAppCommandServiceAsset.repository.repositoryName
-        );
-
         commentAppCommandServiceTaskDef.addContainer("CommentAppCommandServiceTaskContainer", {
-            image: ecs.ContainerImage.fromEcrRepository(
-                commentAppCommandServiceRepo, 
-                commentAppCommandServiceAsset.imageUri.split(':')[1]
-            ),
-            memoryLimitMiB: 512,
+            image: ecs.ContainerImage.fromAsset('../../comment-app/comment-app-api/comment-app-command-service'),
+            memoryLimitMiB: 1024,
             portMappings: [{ containerPort: 8080 }],
-            logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'EventDemo' }),
+            logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'CommentAppCommandServiceLogs' }),
             environment: { 
-                JAVA_OPTIONS: `-Dspring.profiles.active=production -Dcomment.process.sqs=${commentProcessSqs.queueUrl}`,
+                JAVA_OPTIONS: `
+                -Dspring.profiles.active=production 
+                -Dcomment.process.sqs=${commentProcessSqs.queueUrl}
+                -Dcomment.table.dynamo=${commentTable.tableName}
+                -Dregion=${props.env?.region}`,
             },
         });
 
         const commentAppCommandServiceDef = new ecs.FargateService(this, 'CommentAppCommandServiceDef', {
             cluster,
             taskDefinition: commentAppCommandServiceTaskDef,
-            desiredCount: 2
+            desiredCount: 2,
+            healthCheckGracePeriod: Duration.seconds(120)
         });
 
         /********************************************************************************************************/
         /*****************  comment-app-qery-service ECS Service & Task & Repo   ********************************/
         /********************************************************************************************************/
 
-        const commentAppQueryServiceAsset = new DockerImageAsset(this, 'CommentAppQueryService', {
-            directory: path.join(__dirname, '../../../../comment-app/comment-app-api/comment-app-query-service')
-        });
-
         const commentAppQueryServiceTaskDefRole = new iam.Role(this, 'CommentAppQueryServiceTaskDefRole', {
             assumedBy: new iam.ServicePrincipal('ecs-tasks.amazonaws.com')
         })
 
-        commentAppElasticSearch.grantRead(commentAppQueryServiceTaskDefRole);
+        commentAppElasticSearch.grantReadWrite(commentAppQueryServiceTaskDefRole);
 
         const commentAppQueryServiceTaskDef = new ecs.FargateTaskDefinition(this, 'CommentAppQueryServiceTaskDef', {           
-            memoryLimitMiB: 512,
-            cpu: 256,
+            memoryLimitMiB: 1024,
+            cpu: 512,
             taskRole: commentAppQueryServiceTaskDefRole
-        });
-
-        const commentAppQueryServiceRepo = ecr.Repository.fromRepositoryName(
-            this, 
-            commentAppQueryServiceAsset.repository.repositoryName, 
-            commentAppQueryServiceAsset.repository.repositoryName
-        );
+        })
 
         commentAppQueryServiceTaskDef.addContainer("CommentAppQueryServiceTaskContainer", {
-            image: ecs.ContainerImage.fromEcrRepository(
-                commentAppQueryServiceRepo, 
-                commentAppQueryServiceAsset.imageUri.split(':')[1]
-            ),
-            memoryLimitMiB: 512,
+            image: ecs.ContainerImage.fromAsset('../../comment-app/comment-app-api/comment-app-query-service'),
+            memoryLimitMiB: 1024,
             portMappings: [{ containerPort: 8080 }],
-            logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'EventDemo' }),
+            logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'CommentAppQueryServiceLogs' }),
             environment: { 
                 JAVA_OPTIONS: `
                 -Dspring.profiles.active=production 
-                -Dcomment.app.elasticsearch.endpoint=${commentAppElasticSearch.env}
+                -Dcomment.app.elasticsearch.endpoint=https://${commentAppElasticSearch.domainEndpoint}
                 -Dregion=${props.env?.region}`,
             },
         });
@@ -131,7 +111,8 @@ export class MainAppStack extends cdk.Stack {
         const commentAppQueryServiceDef = new ecs.FargateService(this, 'CommentAppQueryServiceDef', {
             cluster,
             taskDefinition: commentAppQueryServiceTaskDef,
-            desiredCount: 2
+            desiredCount: 2,
+            healthCheckGracePeriod: Duration.seconds(120)
         });
 
         /********************************************************************************************************/

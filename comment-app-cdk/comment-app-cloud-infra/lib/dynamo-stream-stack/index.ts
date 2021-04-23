@@ -35,30 +35,15 @@ export class DynamoStreamStack extends cdk.Stack {
     const commentAppElasticSearch = new es.Domain(this, 'CommentAppElasticSearch', {
       domainName: 'comment-app-search',
       version: es.ElasticsearchVersion.V7_7,
-      // vpc,
-      // zoneAwareness: {
-      //   enabled: true,
-      // },
       enforceHttps: true, 
       capacity: {
         dataNodeInstanceType: 't3.small.elasticsearch',
         dataNodes: 1,
-        // dataNodes: 1
-        // dataNodes: 2
-        // masterNodes: 1,
       },
       ebs: {
         volumeType: ec2.EbsDeviceVolumeType.GENERAL_PURPOSE_SSD,
         volumeSize: 20
-      },
-      // zoneAwareness: {
-      //   availabilityZoneCount: 2
-      // },
-      // logging: {
-      //   slowSearchLogEnabled: true,
-      //   appLogEnabled: true,
-      //   slowIndexLogEnabled: true,
-      // },        
+      }       
     });
     
     const dynamoStreamElasticsearchWriterLambda = new lambda.Function(this, 'DynamoStreamElasticsearchWriterLambda', { 
@@ -72,7 +57,7 @@ export class DynamoStreamStack extends cdk.Stack {
       vpc,
       environment: {
         'REGION': region,
-        'ELASTICSEARCH_NODE': commentAppElasticSearch.domainEndpoint,
+        'ELASTICSEARCH_NODE': `https://${commentAppElasticSearch.domainEndpoint}`,
       }
     });
 
