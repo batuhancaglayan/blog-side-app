@@ -63,6 +63,7 @@ export class CommentTextIdentifierStack extends cdk.Stack {
                 'REGION': region,
                 'VERIFIED_COMMENT_SNS_TOPIC': verifiedCommentSNS.topicArn,
                 'BANNED_COMMENT_SNS_TOPIC': bannedCommentSNS.topicArn,
+                'LOG_LEVEL': 'info'
             }
         });
         

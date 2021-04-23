@@ -58,6 +58,7 @@ export class DynamoStreamStack extends cdk.Stack {
       environment: {
         'REGION': region,
         'ELASTICSEARCH_NODE': `https://${commentAppElasticSearch.domainEndpoint}`,
+        'LOG_LEVEL': 'info'
       }
     });
 

@@ -66,6 +66,7 @@ export class SesSenderStack extends cdk.Stack {
             vpc,
             environment: {
                 'REGION': region,
+                'LOG_LEVEL': 'info'
             }
         });
 
