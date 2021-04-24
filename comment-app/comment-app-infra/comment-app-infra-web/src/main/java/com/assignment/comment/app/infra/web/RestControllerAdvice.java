@@ -1,42 +1,70 @@
 package com.assignment.comment.app.infra.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.assignment.comment.app.infra.exception.AssignmentRuntimeException;
+import com.assignment.comment.app.infra.web.message.MessageResolver;
+import com.assignment.comment.app.infra.web.response.RestApiResponseBodyBuilder;
+import com.assignment.comment.app.infra.web.response.model.RestApiResponseBody;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @org.springframework.web.bind.annotation.RestControllerAdvice
 public class RestControllerAdvice {
 
+	@Autowired
+	private MessageResolver ressageResolver;
+
+	@Autowired
+	private RestApiResponseBodyBuilder responseBodyBuilder;
+
 	@ExceptionHandler(AssignmentRuntimeException.class)
-	protected ResponseEntity<Object> handleConflict(AssignmentRuntimeException ex, WebRequest request) {
-		System.err.println(ex.getStackTrace());
-		return  ResponseEntity.status(500).body(ex.getMessage());
+	protected ResponseEntity<Object> handleConflict(AssignmentRuntimeException exception, WebRequest request) {
+
+		log.error(exception.getMessage(), exception);
+		String message =  ressageResolver.getMessageText(exception.getCode());
+		RestApiResponseBody<Object> responseBody = this.responseBodyBuilder.errorBody(message);
+		return ResponseEntity.status(500).body(responseBody);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-		Map<String, String> errors = new HashMap<>();
-		
-		ex.getBindingResult().getAllErrors().forEach((error) -> {
-			String fieldName = ((FieldError) error).getField();
-			String errorMessage = error.getDefaultMessage();
-			errors.put(fieldName, errorMessage);
-		});
-		
-		return errors;
+	public ResponseEntity<?> invalidArgument(MethodArgumentNotValidException exception) {
+
+		log.error(exception.getMessage(), exception);
+		RestApiResponseBody<Object> responseBody = this.responseBodyBuilder.errorBody(exception.getBindingResult());
+		return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
 	}
-	//ElasticsearchStatusException
+
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<?> argumentTypeMismatch(MethodArgumentTypeMismatchException exception) {
+
+		log.error(exception.getMessage(), exception);
+		RestApiResponseBody<Object> responseBody = this.responseBodyBuilder.errorBody(exception);
+		return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	public ResponseEntity<?> missingParameter(MissingServletRequestParameterException exception) {
+
+		log.error(exception.getMessage(), exception);
+		RestApiResponseBody<Object> responseBody = this.responseBodyBuilder.errorBody(exception);
+		return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+	}
+
 	@ExceptionHandler(Exception.class)
-	protected ResponseEntity<Object> handleConflict(Exception ex, WebRequest request) {
-		
-		System.err.println(ex.getStackTrace());
-		return  ResponseEntity.status(500).body(ex.getMessage());
+	public ResponseEntity<?> unknownException(Exception exception) {
+
+		log.error(exception.getMessage(), exception);
+		RestApiResponseBody<Object> responseBody = this.responseBodyBuilder
+				.errorBody(MessageResolver.UNKNOWN_EXCEPTION_TEXT);
+		return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
 	}
 }

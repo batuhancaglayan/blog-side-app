@@ -30,8 +30,19 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.assignment</groupId>
 			<artifactId>comment-app-infra-exception</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.assignment</groupId>
+			<artifactId>comment-app-infra-util</artifactId>
 		</dependency>
 	</dependencies>
 </project>

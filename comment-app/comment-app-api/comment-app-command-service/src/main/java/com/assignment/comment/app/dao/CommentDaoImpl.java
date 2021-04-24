@@ -3,17 +3,23 @@ package com.assignment.comment.app.dao;
 import java.time.Instant;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.services.dynamodbv2.document.KeyAttribute;
 import com.assignment.comment.app.config.DynamoProperties;
 import com.assignment.comment.app.infra.aws.dynamo.DynamoClient;
+import com.assignment.comment.app.infra.aws.dynamo.exception.DynamoClientException;
+import com.assignment.comment.app.infra.web.RestControllerAdvice;
 import com.assignment.comment.app.model.data.CommentModel;
 import com.assignment.comment.app.process.TextIdentificationProcess;
 
 @Component
 public class CommentDaoImpl implements CommentDao {
 
+	private Logger logger = LoggerFactory.getLogger(RestControllerAdvice.class);
+	
 	private static final String SOFT_DELETE_QUERY = "set isActive = :isActive, updatedAt = :updatedAt";
 	
 	private DynamoClient dynamoClient;

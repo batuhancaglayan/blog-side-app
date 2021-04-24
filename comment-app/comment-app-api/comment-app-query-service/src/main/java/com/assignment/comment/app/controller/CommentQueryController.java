@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.assignment.comment.app.infra.web.RestApiController;
+import com.assignment.comment.app.infra.web.response.model.RestApiResponseBody;
 import com.assignment.comment.app.model.dto.CommentSearchKeywordRequestModel;
 import com.assignment.comment.app.model.dto.CommentSearchRequestModel;
 import com.assignment.comment.app.model.dto.CommentSearchResponseModel;
@@ -17,7 +19,7 @@ import com.assignment.comment.app.service.CommentService;
 
 @RestController
 @RequestMapping("comment")
-public class CommentQueryController {
+public class CommentQueryController extends RestApiController {
 
 	private CommentService commentService;
 
@@ -26,16 +28,16 @@ public class CommentQueryController {
 	}
 
 	@PostMapping("/email")
-	public ResponseEntity<List<CommentSearchResponseModel>> searchByEmail(
+	public ResponseEntity<RestApiResponseBody<List<CommentSearchResponseModel>>> searchByEmail(
 			@Valid @RequestBody CommentSearchRequestModel requestModel) {
 
-		return ResponseEntity.ok().body(this.commentService.findByEmail(requestModel));
+		return this.success(this.commentService.findByEmail(requestModel));
 	}
 
 	@PostMapping("/email-keyword")
-	public ResponseEntity<List<CommentSearchResponseModel>> searchByEmailAndKeyword(
+	public  ResponseEntity<RestApiResponseBody<List<CommentSearchResponseModel>>>  searchByEmailAndKeyword(
 			@Valid @RequestBody CommentSearchKeywordRequestModel requestModel) {
 
-		return ResponseEntity.ok().body(this.commentService.findByEmailAndSearchInComment(requestModel));
+		return this.success(this.commentService.findByEmailAndSearchInComment(requestModel));
 	}
 }

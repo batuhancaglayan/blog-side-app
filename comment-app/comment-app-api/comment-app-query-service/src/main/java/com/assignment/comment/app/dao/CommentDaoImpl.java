@@ -47,7 +47,9 @@ public class CommentDaoImpl implements CommentDao {
 			}
 
 			return result;
-		} catch (IOException e) {
+		} 
+		// TODO: handle and identify exception (create specific exception with code like index not found)
+		catch (IOException e) {
 			throw new AssignmentRuntimeException(e.getMessage(), e);
 		}
 	}
@@ -71,7 +73,9 @@ public class CommentDaoImpl implements CommentDao {
 			}
 
 			return result;
-		} catch (IOException e) {
+		} 
+		// TODO: handle and identify exception (create specific exception with code like index not found)
+		catch (IOException e) {
 			throw new AssignmentRuntimeException(e.getMessage(), e);
 		}
 	}
