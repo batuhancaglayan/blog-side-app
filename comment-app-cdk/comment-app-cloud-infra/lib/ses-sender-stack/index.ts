@@ -69,6 +69,7 @@ export class SesSenderStack extends cdk.Stack {
             description: '',
             code: lambda.Code.fromAsset(path.join(__dirname, '../../../../comment-app-lambda/ses-sender-lambda')),
             vpc,
+            reservedConcurrentExecutions: 6,
             environment: {
                 'REGION': region,
                 'LOG_LEVEL': 'info',

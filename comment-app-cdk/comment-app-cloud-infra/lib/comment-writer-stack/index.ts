@@ -74,6 +74,7 @@ export class CommentWriterStack extends cdk.Stack {
             description: '',
             code: lambda.Code.fromAsset(path.join(__dirname, '../../../../comment-app-lambda/dynamo-writer-lambda')),
             vpc,
+            reservedConcurrentExecutions: 6,
             environment: {
                 'REGION': region,
                 'COMMENT_TABLE_NAME': commentTable.tableName,

@@ -55,6 +55,7 @@ export class DynamoStreamStack extends cdk.Stack {
       description: '',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../../../comment-app-lambda/comment-table-stream-lambda')),
       vpc,
+      reservedConcurrentExecutions: 6,
       environment: {
         'REGION': region,
         'ELASTICSEARCH_NODE': `https://${commentAppElasticSearch.domainEndpoint}`,

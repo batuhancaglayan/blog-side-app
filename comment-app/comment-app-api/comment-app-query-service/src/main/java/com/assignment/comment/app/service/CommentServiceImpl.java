@@ -30,21 +30,23 @@ public class CommentServiceImpl implements CommentService {
 
 		String email = requestModel.getEmail();
 		String index = MD5Util.hash(email);
-		
-		List<CommentDocument> result = this.commentDao.findByEmail(index, email);
+
+		List<CommentDocument> result = this.commentDao.findByEmail(index, email,
+				requestModel.getFrom(), requestModel.getSize());
 
 		return this.commentDtoDataModelMapper.dataModelToDto(result, new CyclePreventiveContext());
 	}
 
 	@Override
-	public List<CommentSearchResponseModel> findByEmailAndSearchInComment(CommentSearchKeywordRequestModel requestModel) {
-		
+	public List<CommentSearchResponseModel> findByEmailAndSearchInComment(
+			CommentSearchKeywordRequestModel requestModel) {
+
 		String email = requestModel.getEmail();
 		String index = MD5Util.hash(email);
-		String keyword = requestModel.getKeyword();
-		
-		List<CommentDocument> result = this.commentDao.findByEmailAndSearchInComment(index, email, keyword);
-		
+
+		List<CommentDocument> result = this.commentDao.findByEmailAndSearchInComment(index, email,
+				requestModel.getKeyword(), requestModel.getFrom(), requestModel.getSize());
+
 		return this.commentDtoDataModelMapper.dataModelToDto(result, new CyclePreventiveContext());
 	}
 

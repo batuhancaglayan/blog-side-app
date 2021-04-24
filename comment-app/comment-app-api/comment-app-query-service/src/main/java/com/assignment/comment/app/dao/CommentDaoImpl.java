@@ -31,52 +31,45 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<CommentDocument> findByEmail(String index, String email) {
+	public List<CommentDocument> findByEmail(String index, String email, int from, int size) {
 
-		try {
-			List<CommentDocument> result = new ArrayList<>();
+		List<CommentDocument> result = new ArrayList<>();
 
-			SearchResponse searchResponse = this.esClient.search(index, new MatchQueryBuilder("email", email));
-			if (searchResponse.status() == RestStatus.OK) {
-				SearchHit[] searchHits = searchResponse.getHits().getHits();
+		BoolQueryBuilder qeury = new BoolQueryBuilder().must(QueryBuilders.matchQuery("email", email))
+				.must(QueryBuilders.matchQuery("isActive", 1));
 
-				if (searchHits.length > 0) {
-					Arrays.stream(searchHits).forEach(
-							hit -> result.add(objectMapper.convertValue(hit.getSourceAsMap(), CommentDocument.class)));
-				}
+		SearchResponse searchResponse = this.esClient.search(index, qeury, from, size);
+		if (searchResponse.status() == RestStatus.OK) {
+			SearchHit[] searchHits = searchResponse.getHits().getHits();
+
+			if (searchHits.length > 0) {
+				Arrays.stream(searchHits).forEach(
+						hit -> result.add(objectMapper.convertValue(hit.getSourceAsMap(), CommentDocument.class)));
 			}
-
-			return result;
-		} 
-		// TODO: handle and identify exception (create specific exception with code like index not found)
-		catch (IOException e) {
-			throw new AssignmentRuntimeException(e.getMessage(), e);
 		}
+
+		return result;
 	}
 
 	@Override
-	public List<CommentDocument> findByEmailAndSearchInComment(String index, String email, String keyword) {
-		try {
-			List<CommentDocument> result = new ArrayList<>();
+	public List<CommentDocument> findByEmailAndSearchInComment(String index, String email, String keyword, int from,
+			int size) {
 
-			BoolQueryBuilder boolQuery = new BoolQueryBuilder().must(QueryBuilders.matchQuery("email", email))
-					.must(QueryBuilders.matchQuery("comment", keyword));
+		List<CommentDocument> result = new ArrayList<>();
 
-			SearchResponse searchResponse = this.esClient.search(index, boolQuery);
-			if (searchResponse.status() == RestStatus.OK) {
-				SearchHit[] searchHits = searchResponse.getHits().getHits();
+		BoolQueryBuilder qeury = new BoolQueryBuilder().must(QueryBuilders.matchQuery("email", email))
+				.must(QueryBuilders.matchQuery("isActive", 1)).must(QueryBuilders.matchQuery("comment", keyword));
 
-				if (searchHits.length > 0) {
-					Arrays.stream(searchHits).forEach(
-							hit -> result.add(objectMapper.convertValue(hit.getSourceAsMap(), CommentDocument.class)));
-				}
+		SearchResponse searchResponse = this.esClient.search(index, qeury, from, size);
+		if (searchResponse.status() == RestStatus.OK) {
+			SearchHit[] searchHits = searchResponse.getHits().getHits();
+
+			if (searchHits.length > 0) {
+				Arrays.stream(searchHits).forEach(
+						hit -> result.add(objectMapper.convertValue(hit.getSourceAsMap(), CommentDocument.class)));
 			}
-
-			return result;
-		} 
-		// TODO: handle and identify exception (create specific exception with code like index not found)
-		catch (IOException e) {
-			throw new AssignmentRuntimeException(e.getMessage(), e);
 		}
+
+		return result;
 	}
 }

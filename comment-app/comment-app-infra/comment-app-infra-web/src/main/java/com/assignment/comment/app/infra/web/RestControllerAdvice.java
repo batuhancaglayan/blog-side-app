@@ -27,12 +27,12 @@ public class RestControllerAdvice {
 	private RestApiResponseBodyBuilder responseBodyBuilder;
 
 	@ExceptionHandler(AssignmentRuntimeException.class)
-	protected ResponseEntity<Object> handleConflict(AssignmentRuntimeException exception, WebRequest request) {
+	protected ResponseEntity<Object> assignmentException(AssignmentRuntimeException exception, WebRequest request) {
 
 		log.error(exception.getMessage(), exception);
 		String message =  ressageResolver.getMessageText(exception.getCode());
 		RestApiResponseBody<Object> responseBody = this.responseBodyBuilder.errorBody(message);
-		return ResponseEntity.status(500).body(responseBody);
+		return new ResponseEntity<>(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -59,6 +59,7 @@ public class RestControllerAdvice {
 		return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
 	}
 
+	// TODO: ADD more specific exception types and their handler logics.
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> unknownException(Exception exception) {
 

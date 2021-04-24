@@ -59,6 +59,7 @@ export class CommentTextIdentifierStack extends cdk.Stack {
             description: '',
             code: lambda.Code.fromAsset(path.join(__dirname, '../../../../comment-app-lambda/text-identifier-lambda')),
             vpc,
+            reservedConcurrentExecutions: 6,
             environment: {
                 'REGION': region,
                 'VERIFIED_COMMENT_SNS_TOPIC': verifiedCommentSNS.topicArn,
