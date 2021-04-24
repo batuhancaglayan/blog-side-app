@@ -11,16 +11,16 @@ const craeteIdentificationFailMail = async (destination, data) => {
          Body: {
           Html: {
            Charset: "UTF-8", 
-           Data: `Your comment: ${message.id} contains banned keyword/s. So that it will not be stored.`
+           Data: `Your comment: ${data.id} contains banned keyword/s. So that it will not be stored.`
           }, 
           Text: {
            Charset: "UTF-8", 
-           Data: `Your comment: ${message.id} contains banned keyword/s. So that it will not be stored.`
+           Data: `Your comment: ${data.id} contains banned keyword/s. So that it will not be stored.`
           }
          }, 
          Subject: {
           Charset: "UTF-8", 
-          Data: "Banned Comment"
+          Data: "Assignment Comment App Banned Comment"
          }
         }, 
         Source: config.senderMail, 
