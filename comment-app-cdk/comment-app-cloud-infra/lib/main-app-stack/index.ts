@@ -68,7 +68,8 @@ export class MainAppStack extends cdk.Stack {
                 -Dspring.profiles.active=production 
                 -Dcomment.process.sqs=${commentProcessSqs.queueUrl}
                 -Dcomment.table.dynamo=${commentTable.tableName}
-                -Dregion=${props.env?.region}`,
+                -Dregion=${props.env?.region}
+                -Dlog.level=INFO`,
             },
         });
 
@@ -104,7 +105,8 @@ export class MainAppStack extends cdk.Stack {
                 JAVA_OPTIONS: `
                 -Dspring.profiles.active=production 
                 -Dcomment.app.elasticsearch.endpoint=https://${commentAppElasticSearch.domainEndpoint}
-                -Dregion=${props.env?.region}`,
+                -Dregion=${props.env?.region}
+                -Dlog.level=INFO`,
             },
         });
 
