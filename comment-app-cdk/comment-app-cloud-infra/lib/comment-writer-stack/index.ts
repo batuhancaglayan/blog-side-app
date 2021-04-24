@@ -77,6 +77,7 @@ export class CommentWriterStack extends cdk.Stack {
             environment: {
                 'REGION': region,
                 'COMMENT_TABLE_NAME': commentTable.tableName,
+                'LOG_LEVEL': 'info'
             }
         });
         
