@@ -38,19 +38,19 @@ public class RestApiResponseBodyBuilder {
 				.timestamp(this.requestContextResolver.clientTime())
 				.errors(new RestApiError[] {
 						RestApiError.builder().type(RestApiError.DEFAULT).message(errorMessage).build() })
-				.message(errorMessage).build();
+				.message("error").build();
 	}
 
 	public RestApiResponseBody<Object> errorBody(BindingResult validationResult) {
 		
 		return RestApiResponseBody.builder().data(null).timestamp(this.requestContextResolver.clientTime())
-				.message("Validation error").errors(this.validationErrors(validationResult)).build();
+				.message("error").errors(this.validationErrors(validationResult)).build();
 	}
 
 	public RestApiResponseBody<Object> errorBody(MethodArgumentTypeMismatchException exception) {
 		
 		return RestApiResponseBody.builder().data(null).timestamp(this.requestContextResolver.clientTime())
-				.message("Validation error")
+				.message("error")
 				.errors(new RestApiError[] { RestApiError.builder().type(RestApiError.DEFAULT)
 						.title(exception.getParameter().getParameterName()).message(exception.getMessage()).build() })
 				.build();
@@ -59,7 +59,7 @@ public class RestApiResponseBodyBuilder {
 	public RestApiResponseBody<Object> errorBody(MissingServletRequestParameterException exception) {
 		
 		return RestApiResponseBody.builder().data(null).timestamp(this.requestContextResolver.clientTime())
-				.message("Validation error")
+				.message("error")
 				.errors(new RestApiError[] { RestApiError.builder().type(RestApiError.DEFAULT)
 						.title(exception.getParameterName()).message(exception.getMessage()).build() })
 				.build();
