@@ -1,9 +1,11 @@
 const { process } = require('./service/process-stream-data-service');
 
-const { validate } = require('./validate')
+const { validate } = require('./helper/validation');
 
-const middy = require('@middy/core')
-const sqsPartialBatchFailureMiddleware = require('@middy/sqs-partial-batch-failure')
+const { errorHandler } = require('./helper/error-handler');
+
+const middy = require('@middy/core');
+const sqsPartialBatchFailureMiddleware = require('@middy/sqs-partial-batch-failure');
 
 const handler = async (event) => {
   const messageProcessingPromises = event.Records.map(processMessage)
@@ -11,9 +13,9 @@ const handler = async (event) => {
   return Promise.allSettled(messageProcessingPromises)
 }
 
-const processMessage = validate(async (streamEvent) => {
+const processMessage = errorHandler(validate(async (streamEvent) => {
     return await process({ streamEvent });
-});
+}));
 
 const middyHandler = middy(handler)
 middyHandler.use(sqsPartialBatchFailureMiddleware())

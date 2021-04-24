@@ -18,6 +18,8 @@ import * as path from 'path';
 
 export interface SesSenderStackProps extends cdk.StackProps {
     vpc: ec2.Vpc;
+
+    senderMail: string;
 }
 
 export class SesSenderStack extends cdk.Stack {
@@ -28,7 +30,10 @@ export class SesSenderStack extends cdk.Stack {
         super(scope, id, props);
         
         const region = props.env?.region || '';
+        const account = props.env?.account || '';
         const vpc: ec2.Vpc = props.vpc;
+
+        const senderMail = props.senderMail;
         
         const bannedCommentSNS = new sns.Topic(this, 'BannedCommentSNS', {
             displayName: 'BannedCommentSns',
@@ -66,7 +71,9 @@ export class SesSenderStack extends cdk.Stack {
             vpc,
             environment: {
                 'REGION': region,
-                'LOG_LEVEL': 'info'
+                'LOG_LEVEL': 'info',
+                'SENDER_MAIL': senderMail,
+                'ACCOUNT': account
             }
         });
 

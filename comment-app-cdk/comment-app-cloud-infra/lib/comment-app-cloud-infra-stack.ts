@@ -30,7 +30,8 @@ export class CommentAppCloudInfraStack extends cdk.Stack {
     const sesSenderStack = new SesSenderStack(this, 'AssigmentSesSenderStack', { 
       stackName: 'AssigmentSesSenderStack',
       vpc: networkStack.vpc,
-      env: props?.env
+      env: props?.env,
+      senderMail: 'batuhanaskyour@gmail.com'
     });
 
     const dynamoStreamStack = new DynamoStreamStack(this, 'AssigmentDynamoStreamStack', { 
