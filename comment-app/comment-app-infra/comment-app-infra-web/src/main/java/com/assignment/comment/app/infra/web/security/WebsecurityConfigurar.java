@@ -17,7 +17,7 @@ public class WebsecurityConfigurar extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("assigment-user").password(passwordEncoder().encode("assigment-pass"))
+		auth.inMemoryAuthentication().withUser("assignment-user").password(passwordEncoder().encode("assignment-pass"))
 				.authorities("TEMP-SUPER_USER");
 	}
 
