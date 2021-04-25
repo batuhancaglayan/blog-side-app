@@ -6,6 +6,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import com.amazonaws.auth.AWS4Signer;
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -14,6 +15,7 @@ import com.assignment.comment.app.infra.aws.common.AWSRequestSigningApacheInterc
 import com.assignment.comment.app.infra.es.DefaultESClient;
 import com.assignment.comment.app.infra.es.ESClient;
 
+@Profile("!test")
 @Configuration
 public class AwsConfig {
 

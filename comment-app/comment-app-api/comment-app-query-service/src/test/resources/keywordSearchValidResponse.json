@@ -1,0 +1,34 @@
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1.1507283,
+    "hits": [
+      {
+        "_index": "630a992d1c763be5d000d7da3bc8c3cb",
+        "_type": "_doc",
+        "_id": "644399ce-6b2b-42f7-8729-8e32bb1848e4",
+        "_score": 1.1507283,
+        "_source": {
+          "id": "644399ce-6b2b-42f7-8729-8e32bb1848e4",
+          "email": "batuhancaglayan1@gmail.com",
+          "comment": "bthn test1234 deneme deneme1 deneme12 deneme123 deneme123456",
+          "createdAt": "1619312978",
+          "updatedAt": "1619312978",
+          "identifiedAt": "1619312999104",
+          "isActive": "1"
+        }
+      }
+    ]
+  }
+}

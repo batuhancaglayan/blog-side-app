@@ -1,0 +1,64 @@
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": 0.8630463,
+    "hits": [
+      {
+        "_index": "630a992d1c763be5d000d7da3bc8c3cb",
+        "_type": "_doc",
+        "_id": "b42a7ac8-fc18-42be-abd5-2a0e4bd9fc5a",
+        "_score": 0.8630463,
+        "_source": {
+          "id": "b42a7ac8-fc18-42be-abd5-2a0e4bd9fc5a",
+          "email": "batuhancaglayan1@gmail.com",
+          "comment": "bthn selam sna",
+          "createdAt": "1619313628",
+          "updatedAt": "1619313628",
+          "identifiedAt": "1619313649955",
+          "isActive": "1"
+        }
+      },
+      {
+        "_index": "630a992d1c763be5d000d7da3bc8c3cb",
+        "_type": "_doc",
+        "_id": "69774177-cc52-418a-b443-d493255cf3a4",
+        "_score": 0.8630463,
+        "_source": {
+          "id": "69774177-cc52-418a-b443-d493255cf3a4",
+          "email": "batuhancaglayan1@gmail.com",
+          "comment": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "createdAt": "1619312949",
+          "updatedAt": "1619312949",
+          "identifiedAt": "1619312970171",
+          "isActive": "1"
+        }
+      },
+      {
+        "_index": "630a992d1c763be5d000d7da3bc8c3cb",
+        "_type": "_doc",
+        "_id": "644399ce-6b2b-42f7-8729-8e32bb1848e4",
+        "_score": 0.8630463,
+        "_source": {
+          "id": "644399ce-6b2b-42f7-8729-8e32bb1848e4",
+          "email": "batuhancaglayan1@gmail.com",
+          "comment": "bthn test1234 deneme deneme1 deneme12 deneme123 deneme123456",
+          "createdAt": "1619312978",
+          "updatedAt": "1619312978",
+          "identifiedAt": "1619312999104",
+          "isActive": "1"
+        }
+      }
+    ]
+  }
+}

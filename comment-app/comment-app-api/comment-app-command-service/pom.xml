@@ -37,7 +37,7 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.assignment</groupId>
 			<artifactId>comment-app-infra-aws</artifactId>
@@ -51,6 +51,12 @@
 		<dependency>
 			<groupId>com.assignment</groupId>
 			<artifactId>comment-app-infra-exception</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

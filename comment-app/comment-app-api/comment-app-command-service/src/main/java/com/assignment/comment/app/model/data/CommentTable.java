@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.Data;
 
 @Data
-@DynamoDBTable(tableName = "comment-table")
+@DynamoDBTable(tableName = "CommentTable")
 public class CommentTable {
 
 	@DynamoDBHashKey

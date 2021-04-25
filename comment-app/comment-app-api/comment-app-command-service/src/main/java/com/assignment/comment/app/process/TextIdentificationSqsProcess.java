@@ -27,9 +27,8 @@ public class TextIdentificationSqsProcess implements TextIdentificationProcess {
 		try {		
 			this.sqsClient.send(this.sqsProperties.getCommentProcessSqs(), textIdentificationProcessModel);
 			return true;
-		} catch (Exception e) {
-			
-			log.error("Text identification procees did not start. Process id: " + textIdentificationProcessModel.getId(), e);
+		} catch (Exception e) {		
+			log.warn("Text identification procees did not start. Process id: " + textIdentificationProcessModel.getId(), e);
 			return false;
 		}
 	}
