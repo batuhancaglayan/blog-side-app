@@ -6,7 +6,7 @@ if [[ $# -ge 2 ]]; then
  shift; shift
 
  echo '############################# build main app ###################################'
- mvn -f ../comment-app clean install
+ mvn -f ../comment-app clean install -DskipTests
 
  echo '####################### text-identifier-lambda #################################'
  npm install ../comment-app-lambda/text-identifier-lambda
