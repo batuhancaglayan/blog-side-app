@@ -3,7 +3,6 @@ package com.assignment.comment.app.infra.aws.sqs;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
-import com.assignment.comment.app.infra.aws.sqs.exception.SqsClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,13 +27,11 @@ public class DefaultSqsClient implements SqsClient {
 
 	public <T> void send(String queueUrl, T content, String messageGroupId, String messageDeduplicationId)
 			throws JsonProcessingException {
-
-		try {
-			this.amazonSQS.sendMessage(new SendMessageRequest().withMessageBody(objectMapper.writeValueAsString(content))
-					.withQueueUrl(queueUrl).withMessageGroupId(messageGroupId)
-					.withMessageDeduplicationId(messageDeduplicationId));
-		} catch (Exception e) {
-			throw new SqsClientException(e.getMessage(), e);
-		}
+		
+		this.amazonSQS.sendMessage(new SendMessageRequest().withMessageBody(objectMapper.writeValueAsString(content))
+				.withQueueUrl(queueUrl).withMessageGroupId(messageGroupId)
+				.withMessageDeduplicationId(messageDeduplicationId));
 	}
+	
+	// TODO: Write other methods here
 }

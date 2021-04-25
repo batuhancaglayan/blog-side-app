@@ -1,10 +1,15 @@
 package com.assignment.comment.app.dao;
 
-import com.assignment.comment.app.model.data.CommentModel;
+import org.springframework.stereotype.Component;
 
-public interface CommentDao {
-	
-	public boolean createComment(CommentModel commentModel);
-	
-	public void softDeleteItem(String commentId);
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.assignment.comment.app.infra.aws.dynamo.AbstractDynamoDao;
+import com.assignment.comment.app.model.data.CommentTable;
+
+@Component
+public class CommentDao extends AbstractDynamoDao<CommentTable, String> {
+
+	public CommentDao(DynamoDBMapper dynamoDBMapper) {
+		super(dynamoDBMapper);
+	}
 }
