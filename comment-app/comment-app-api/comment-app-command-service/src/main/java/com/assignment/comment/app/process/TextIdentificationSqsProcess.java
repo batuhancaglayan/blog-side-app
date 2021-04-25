@@ -3,10 +3,12 @@ package com.assignment.comment.app.process;
 import org.springframework.stereotype.Component;
 
 import com.assignment.comment.app.config.SqsProperties;
-import com.assignment.comment.app.exception.TextIdentificationProcessException;
 import com.assignment.comment.app.infra.aws.sqs.SqsClient;
 import com.assignment.comment.app.model.data.CommentModel;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class TextIdentificationSqsProcess implements TextIdentificationProcess {
 
@@ -26,7 +28,9 @@ public class TextIdentificationSqsProcess implements TextIdentificationProcess {
 			this.sqsClient.send(this.sqsProperties.getCommentProcessSqs(), textIdentificationProcessModel);
 			return true;
 		} catch (Exception e) {
-			throw new TextIdentificationProcessException(e.getMessage(), e);
+			
+			log.error("Text identification procees did not start. Process id: " + textIdentificationProcessModel.getId(), e);
+			return false;
 		}
 	}
 }

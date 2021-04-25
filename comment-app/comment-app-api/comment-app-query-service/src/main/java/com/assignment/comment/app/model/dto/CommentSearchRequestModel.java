@@ -16,8 +16,8 @@ public class CommentSearchRequestModel {
 	@NotNull
 	private String email;
 	
-	@Min(1)
-	private int from = 1;
+	@Min(0)
+	private int from = 0;
 	
 	@Min(1)
 	@Max(100)

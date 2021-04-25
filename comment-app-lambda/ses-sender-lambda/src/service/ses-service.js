@@ -7,7 +7,7 @@ const { logger } = require('../helper/logger');
 const sendEmail = async ({ message }) => {
 
     const destination = message.email;
-    const mailContent = await craeteIdentificationFailMail(destination);
+    const mailContent = await craeteIdentificationFailMail(destination, message);
 
     logger.log({level: 'debug', message: `Mail will send to ${destination}.`});
 
